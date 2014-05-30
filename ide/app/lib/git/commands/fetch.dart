@@ -115,7 +115,8 @@ class Fetch {
         List<String> haveRefs = graph.commits.map((CommitObject commit)
             => commit.treeSha).toList();
         return fetcher.fetchRef([wantRef.sha], haveRefs, store.config.shallow,
-            null, graph.nextLevel, null, progress).then((PackParseResult result) {
+            options.depth, graph.nextLevel, null, progress).then(
+                (PackParseResult result) {
           List<int> packSha = result.data.sublist(result.data.length - 20);
           Uint8List packIdxData = PackIndex.writePackIndex(result.objects,
               packSha);
