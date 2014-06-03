@@ -2638,9 +2638,9 @@ class GitPushAction extends SparkActionWithDialog implements ContextAction {
         _gitUsername = info['username'];
         _gitPassword = info['password'];
       }
-      else if (!_showAuthDialog()) {
+      else  {
+        _showAuthDialog(context);
         return;
-        //_hide();
       }
       gitOperations = spark.scmManager.getScmOperationsFor(project);
       gitOperations.getPendingCommits(_gitUsername, _gitPassword).then(
@@ -2659,7 +2659,9 @@ class GitPushAction extends SparkActionWithDialog implements ContextAction {
           commitView.commitInfo = info;
           _commitsList.children.add(commitView);
         });
-        _show();
+        Timer.run(() {
+          _show();
+        });
       }).catchError((e) {
         spark.showErrorMessage('Push failed', 'Something went wrong.');
       });
@@ -2712,16 +2714,15 @@ class GitPushAction extends SparkActionWithDialog implements ContextAction {
   }
 
   /// Shows an authentification dialog. Returns false if cancelled.
-  bool _showAuthDialog() {
+  void _showAuthDialog(context) {
     Timer.run(() {
       // In a timer to let the previous dialog dismiss properly.
       GitAuthenticationDialog.request(spark).then((info) {
         _gitUsername = info['username'];
         _gitPassword = info['password'];
-        return true;
-      }).catchError((_) {
-        // Cancelled authentication:
-        return false;
+        _invoke(context);
+      }).catchError((e) {
+        // Cancelled authentication: do nothing.
       });
     });
   }
