@@ -652,7 +652,7 @@ abstract class Spark
   Completer<bool> _okCancelCompleter;
 
   Future<bool> askUserOkCancel(String message,
-      {String okButtonLabel: 'OK', String title}) {
+      {String okButtonLabel: 'OK', String title: ""}) {
     // TODO(ussuri): Polymerize.
     if (_okCancelDialog == null) {
       _okCancelDialog = createDialog(getDialogElement('#okCancelDialog'));
