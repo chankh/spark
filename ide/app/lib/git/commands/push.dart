@@ -29,7 +29,7 @@ class Push {
     Function pushProgress;
 
     if (options.progressCallback != null) {
-      // TODO add progress chunker.
+      // TODO(grv): Add progress chunker.
     } else {
       pushProgress = nopFunction;
     }
