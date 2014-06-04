@@ -2898,27 +2898,6 @@ class _GitCloneTask {
   }
 }
 
-class _GitCommitJob extends Job {
-  GitScmProjectOperations gitOperations;
-  String _commitMessage;
-  String _userName;
-  String _userEmail;
-  Spark spark;
-
-  _GitCommitJob(this.gitOperations, this._userName, this._userEmail,
-      this._commitMessage, this.spark) : super("Committing...");
-
-  Future run(ProgressMonitor monitor) {
-    monitor.start(name, 1);
-    return gitOperations.commit(_userName, _userEmail, _commitMessage).
-        then((_) {
-      spark.showSuccessMessage('Committed changes');
-    }).catchError((e) {
-      spark.showErrorMessage('Error committing changes', e.toString());
-    });
-  }
-}
-
 class _GitPullJob extends Job {
   GitScmProjectOperations gitOperations;
   Spark spark;
@@ -2976,6 +2955,27 @@ class _GitBranchJob extends Job {
     }).catchError((e) {
       spark.showErrorMessage(
           'Error creating branch ${_branchName}', e.toString());
+    });
+  }
+}
+
+class _GitCommitJob extends Job {
+  GitScmProjectOperations gitOperations;
+  String _commitMessage;
+  String _userName;
+  String _userEmail;
+  Spark spark;
+
+  _GitCommitJob(this.gitOperations, this._userName, this._userEmail,
+      this._commitMessage, this.spark) : super("Committing...");
+
+  Future run(ProgressMonitor monitor) {
+    monitor.start(name, 1);
+    return gitOperations.commit(_userName, _userEmail, _commitMessage).
+        then((_) {
+      spark.showSuccessMessage('Committed changes');
+    }).catchError((e) {
+      spark.showErrorMessage('Error committing changes', e.toString());
     });
   }
 }
