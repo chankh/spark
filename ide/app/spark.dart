@@ -2556,6 +2556,7 @@ class GitCommitAction extends SparkActionWithProgressDialog implements ContextAc
 
     SparkDialogButton closeButton = getElement('#gitCommitCancel');
     closeButton.disabled = false;
+    _toggleProgressVisible(false);
   }
 
   void _commit() {
@@ -2565,6 +2566,9 @@ class GitCommitAction extends SparkActionWithProgressDialog implements ContextAc
 
     SparkDialogButton closeButton = getElement('#gitCommitCancel');
     closeButton.disabled = true;
+
+    _progress.progressMessage = "Committing...";
+    _toggleProgressVisible(true);
 
     if (_needsFillNameEmail) {
       _gitName = _userNameElement.value;
@@ -2698,7 +2702,6 @@ class GitPushAction extends SparkActionWithProgressDialog implements ContextActi
   }
 
   void _push() {
-    _progress = getElement('#gitPushProgress');
     _progress.progressMessage = "Pushing...";
     _toggleProgressVisible(true);
 
