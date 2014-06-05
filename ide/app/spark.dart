@@ -2966,6 +2966,9 @@ class _GitCloneTask {
 
           spark.workspace.save();
         });
+      }).catchError((e) {
+        // Remove the created project folder.
+        return location.entry.removeRecursively().then((_) => throw e);
       });
     });
   }
