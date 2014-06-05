@@ -2509,6 +2509,7 @@ class GitCommitAction extends SparkActionWithProgressDialog implements ContextAc
     deletedFileList.clear();
     SparkDialogButton commitButton = getElement('#gitCommit');
     commitButton.disabled = false;
+    commitButton.deliverChanges();
     spark.syncPrefs.getValue("git-user-info").then((String value) {
       _gitName = null;
       _gitEmail = null;
@@ -2557,6 +2558,7 @@ class GitCommitAction extends SparkActionWithProgressDialog implements ContextAc
       _gitStatusElement.text = "Nothing to commit.";
       SparkDialogButton commitButton = getElement('#gitCommit');
       commitButton.disabled = true;
+      commitButton.deliverChanges();
     } else {
       _gitStatusElement.text =
           '$modifiedCnt ${(modifiedCnt > 1) ? 'files' : 'file'} modified, ' +
