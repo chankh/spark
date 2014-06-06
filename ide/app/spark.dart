@@ -2894,8 +2894,8 @@ class GitRevertChangesAction extends SparkAction implements ContextAction {
         spark.scmManager.getScmOperationsFor(resources.first.project);
 
     for (ws.Resource resource in resources) {
-      // TODO: Should we also check UNTRACKED?
-      if (operations.getFileStatus(resource) != ScmFileStatus.MODIFIED) {
+      if (!resource.isFile ||
+          operations.getFileStatus(resource) != ScmFileStatus.MODIFIED) {
         return false;
       }
     }
