@@ -1204,10 +1204,13 @@ abstract class SparkActionWithDialog extends SparkAction {
     final Element submitBtn = _dialog.getElement("[submit]");
     if (submitBtn != null) {
       submitBtn.onClick.listen((Event e) {
-        e..stopPropagation()..preventDefault();
-        _commit();
+        onSubmit(e);
       });
     }
+  }
+
+  void onSubmit(Event e) {
+    _commit();
   }
 
   void _commit() => _hide();
@@ -2292,6 +2295,11 @@ class GitCloneAction extends SparkActionWithProgressDialog {
     _show();
   }
 
+  void onSubmit(Event e) {
+    e..stopPropagation()..preventDefault();
+    _commit();
+  }
+
   void _restoreDialog() {
     SparkDialogButton cloneButton = getElement('#clone');
     cloneButton.disabled = false;
@@ -2462,6 +2470,11 @@ class GitBranchAction extends SparkActionWithProgressDialog implements ContextAc
     });
   }
 
+  void onSubmit(Event e) {
+    e..stopPropagation()..preventDefault();
+    _commit();
+  }
+
   void _commit() {
     String remoteBranchName = "";
     int selectIndex = _selectElement.selectedIndex;
@@ -2566,6 +2579,11 @@ class GitCommitAction extends SparkActionWithProgressDialog implements ContextAc
       });
 
     });
+  }
+
+  void onSubmit(Event e) {
+    e..stopPropagation()..preventDefault();
+    _commit();
   }
 
   void _addGitStatus() {
@@ -2698,6 +2716,11 @@ class GitCheckoutAction extends SparkActionWithProgressDialog implements Context
     _show();
   }
 
+  void onSubmit(Event e) {
+    e..stopPropagation()..preventDefault();
+    _commit();
+  }
+
   void _commit() {
     // TODO(grv): Add verify checks.
     String branchName = _selectElement.options[
@@ -2769,6 +2792,11 @@ class GitPushAction extends SparkActionWithProgressDialog implements ContextActi
         spark.showErrorMessage('Push failed', 'Something went wrong.');
       });
     });
+  }
+
+  void onSubmit(Event e) {
+    e..stopPropagation()..preventDefault();
+    _commit();
   }
 
   void _push() {
