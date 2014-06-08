@@ -3459,17 +3459,11 @@ class _WebStorePublishJob extends Job {
 class GitAuthenticationDialog extends SparkActionWithDialog {
   Completer completer;
   static GitAuthenticationDialog _instance;
-  bool _initialized = false;
 
   GitAuthenticationDialog(spark, dialogElement)
       : super(spark, "git-authentication", "Authenticate", dialogElement);
 
   void _invoke([Object context]) {
-    if (!_initialized) {
-      _dialog.getElement("[cancel]").onClick.listen((_) => _cancel());
-      _initialized = true;
-    }
-
     spark.setGitSettingsResetDoneVisible(false);
     _show();
   }
@@ -3490,6 +3484,7 @@ class GitAuthenticationDialog extends SparkActionWithDialog {
   void _cancel() {
     completer.completeError("cancelled");
     completer = null;
+    _hide();
   }
 
   static Future<Map> request(Spark spark) {
