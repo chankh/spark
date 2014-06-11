@@ -241,6 +241,7 @@ class SparkPolymer extends Spark {
     _bindButtonToAction('runButton', 'application-run');
     _bindButtonToAction('leftNav', 'navigate-back');
     _bindButtonToAction('rightNav', 'navigate-forward');
+    _bindButtonToAction('settingsButton', 'settings');
   }
 
   @override
