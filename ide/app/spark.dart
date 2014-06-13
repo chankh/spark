@@ -1637,7 +1637,7 @@ class ApplicationRunAction extends SparkAction implements ContextAction {
   }
 
   void _updateEnablement(ws.Resource resource) {
-    enabled = _appliesTo(resource);
+    enabled = (resource != null && _appliesTo(resource));
   }
 }
 
@@ -2123,7 +2123,7 @@ class DeployToMobileAction extends SparkActionWithProgressDialog implements Cont
   }
 
   void _updateEnablement(ws.Resource resource) {
-    enabled = _appliesTo(resource);
+    enabled = resource != null && _appliesTo(resource);
   }
 
   void _commit() {
@@ -3449,7 +3449,7 @@ class WebStorePublishAction extends SparkActionWithDialog {
   }
 
   void _updateEnablement(ws.Resource resource) {
-    enabled = getAppContainerFor(resource) != null;
+    enabled = resource != null && getAppContainerFor(resource) != null;
   }
 }
 
