@@ -36,6 +36,8 @@ class SparkDialog extends SparkWidget {
   void show() {
     if (!_modal.opened) {
       _modal.toggle();
+
+      focus();
     }
   }
 
