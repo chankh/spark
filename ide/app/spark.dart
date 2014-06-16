@@ -2145,7 +2145,7 @@ class DeployToMobileAction extends SparkActionWithProgressDialog implements Cont
 
     ProgressMonitor monitor = new ProgressMonitorImpl(_progress);
 
-    String type = getElement('input[name="type"]:checked').id;
+    String type = getElement('input[name="mobileDeployType"]:checked').id;
     bool useAdb = type == 'adb';
     String url = _pushUrlElement.value;
 
